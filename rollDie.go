@@ -1,13 +1,14 @@
 package dice
 
 import (
-	"github.com/itsabot/abot/shared/datatypes"
-	"github.com/itsabot/abot/shared/nlp"
-	"github.com/itsabot/abot/shared/plugin"
 	"log"
 	"math/rand"
 	"strconv"
 	"time"
+
+	"github.com/itsabot/abot/shared/datatypes"
+	"github.com/itsabot/abot/shared/nlp"
+	"github.com/itsabot/abot/shared/plugin"
 )
 
 var p *dt.Plugin
@@ -41,11 +42,8 @@ func init() {
 	// Add vocab handlers to the plugin
 	p.Vocab = dt.NewVocab(
 		dt.VocabHandler{
-			Fn: findNumDieSides,
-			Trigger: &nlp.StructuredInput{
-				Commands: []string{"roll"},
-				Objects:  []string{"die", "dice"},
-			},
+			Fn:      findNumDieSides,
+			Trigger: trigger,
 		},
 	)
 }
@@ -75,6 +73,6 @@ func rollDie(sides int) string {
 	if result == 0 {
 		return rollDie(sides)
 	} else {
-		return "I rolled a " + strconv.Itoa(result)
+		return "I rolled a " + strconv.Itoa(result) + "."
 	}
 }
